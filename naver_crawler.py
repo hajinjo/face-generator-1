@@ -1,6 +1,5 @@
 import requests
 import os
-import pprint
 
 
 API_URL = "https://openapi.naver.com/v1/search/image"
@@ -43,7 +42,6 @@ def download_imgs(keyword, limit=100):
     """이미지를 검색하여 원하는 개수만큼 저장한다 (기본값 100개, 최대 1000개)"""
     if limit > 100:
         urls = get_links(keyword, True)
-        pprint.pprint(urls)
     else:
         urls = get_links(keyword)
 
