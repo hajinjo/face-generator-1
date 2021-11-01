@@ -21,7 +21,9 @@ def get_file_ext(img_url):
 def get_links(keyword, long=False):
     """Naver API를 이용해 검색된 이미지 URL을 리턴"""
     init_r = requests.get(
-        API_URL, params={"query": keyword, "display": 100}, headers=auth_headers
+        API_URL,
+        params={"query": keyword, "display": 100, "filter": "large"},
+        headers=auth_headers,
     ).json()
     print(f"Searching {keyword}, Found Total {init_r['total']}!")
     urls = [x["link"] for x in init_r["items"]]
@@ -46,6 +48,7 @@ def download_imgs(keyword, limit=100):
         urls = get_links(keyword)
 
     keyword = "_".join(keyword.split(" "))  # 띄어쓰기가 있는 경우 처리 (경로명으로 사용하기위해)
+    os.makedirs(f"{keyword}", exist_ok=True)  # 디렉토리 생성
 
     with requests.Session() as s:
         for idx, url in enumerate(urls[:limit]):
@@ -53,10 +56,11 @@ def download_imgs(keyword, limit=100):
 
             if ext not in ["jpg", "jpeg", "png"]:
                 continue
-
-            img = s.get(url).content
-
-            os.makedirs(f"{keyword}", exist_ok=True)  # 디렉토리 생성
+            try:
+                img = s.get(url, timeout=2).content
+            except Exception as e:
+                print(f"Exception on {idx+1}: {e}")
+                continue
 
             with open(f"{keyword}/{keyword}_{idx+1}.{ext}", "wb") as f:
                 f.write(img)
@@ -69,4 +73,17 @@ def download_imgs(keyword, limit=100):
 
 
 if __name__ == "__main__":
-    download_imgs("apple", 10)
+    celebs = [
+        "naomi watts",
+        "rachel mcadams",
+        "scarlett johansson",
+        "amanda seyfried",
+        "emma stone",
+        "emma watson",
+        "chloe moretz",
+    ]
+
+    for celeb in celebs:
+        download_imgs(celeb, 30)
+
+    download_imgs("blonde beauty", 100)
