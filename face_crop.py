@@ -42,11 +42,19 @@ def highlight_faces(image, faces, output_filename):
     start_y = box[0][1]
     end_x = box[2][0]
     end_y = box[2][1]
-    area = (start_x, start_y, end_x, end_y)
+
+    delta_y = end_y-start_y
+    delta_x = end_x-start_x
+
+    padding = (delta_y - delta_x) / 2
+    new_start_x = start_x-padding
+    new_end_x = end_x+padding
+
+    area = (new_start_x, start_y, new_end_x, end_y)
     
     # im.save(output_filename) # 바운딩 박스 그려진 이미지 저장
 
-    save_path = "./crop_img/"
+    save_path = "./crop_add/"
     if not os.path.exists(save_path):
         print("저장 폴더 생성")
         os.mkdir(save_path)
@@ -78,7 +86,7 @@ if __name__ == '__main__':
     max result : 최대 인식할 갯수 
     '''
 
-    path = "./amanda seyfried"
+    path = "./img_add"
     file_list = os.listdir(path)
     i = 1
     for file in file_list:
