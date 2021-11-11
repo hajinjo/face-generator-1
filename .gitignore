@@ -128,9 +128,21 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+#---------- My Configurations From Here----------
 
+# VSCode config
 .vscode
+
+# images
 *.jpg
 *.png
 *.jpeg
+
+# macOS
 .DS_Store
+
+# pickle files (trained models)
+*.pkl
+
+# result images for readme.md
+!results/*
