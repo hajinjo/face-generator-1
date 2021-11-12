@@ -1,16 +1,18 @@
-from abc import ABC, abstractmethod
-
 import requests
 
 
-class Crawler(ABC):
-    @abstractmethod
-    def search(self, keyword: str) -> list:
-        pass
+class Crawler:
+    def get_file_ext(self, url: str) -> str:
+        ext = url.split(".")[-1]
+        if "?" in ext:
+            return ext.split("?")[0]
+        return ext
 
-    @abstractmethod
-    def download(self, keyword, path) -> None:
-        pass
+    def search(self, keyword: str) -> list:
+        raise NotImplementedError
+
+    def download(self, keyword, dir) -> None:
+        raise NotImplementedError
 
 
 class NaverCrawler(Crawler):
@@ -48,6 +50,27 @@ class NaverCrawler(Crawler):
 
                     urls.extend([x["link"] for x in r["items"]])
         return urls
+
+    def download(self, keyword, dir="download", limit=100) -> None:
+        urls = self.search(keyword=keyword, limit=limit)
+
+        with requests.Session() as s:
+            for idx, url in enumerate(urls):
+
+                ext = self.get_file_ext(url)
+                if ext not in ["jpg", "jpeg", "png"]:
+                    continue
+
+                try:
+                    img = s.get(url, timeout=2).content
+                except Exception as e:
+                    print(f"fail to download {idx}, skipping...")
+                    continue
+
+                print(f"\rSaving {url[:15]}... {idx+1}/{len(urls)}", end="")
+                with open(f"{dir}/{keyword}_{idx+1}.{ext}", "wb") as f:
+                    f.write(img)
+        print(f'finish downloading to "{dir}"')
 
 
 if __name__ == "__main__":
