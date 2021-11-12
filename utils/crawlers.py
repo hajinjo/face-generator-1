@@ -8,6 +8,10 @@ class Crawler(ABC):
     def search(self, keyword: str) -> list:
         pass
 
+    @abstractmethod
+    def download(self, keyword, path) -> None:
+        pass
+
 
 class NaverCrawler(Crawler):
     SEARCH_API = "https://openapi.naver.com/v1/search/image"
