@@ -26,11 +26,11 @@ GAN을 활용해 다수의 여성 얼굴 이미지로부터 가상의 얼굴 이
 3) 모델 학습 및 이미지 생성
     - [X] DCGAN
     - [X] StyleGAN2-ADA
-    - [ ] Face-Morphing
+    - [X] Face-Morphing
 4) 결과물 확인
-    - [ ] 생성된 이미지 선별
+    - [X] 생성된 이미지 선별
 
-## 중간 결과물
+## 결과
 ### DCGAN ([notebook](https://github.com/Guest-01/face-generator/blob/dev/1_dcgan.ipynb))
 ![image](https://user-images.githubusercontent.com/49602144/141455915-3dc5ce84-54f7-443d-940a-1a820e52934e.png)
 ### StyleGAN2-ADA transfer-learning ([notebook](https://github.com/Guest-01/face-generator/blob/dev/2_stylegan_transfer_learning.ipynb))
@@ -39,5 +39,6 @@ GAN을 활용해 다수의 여성 얼굴 이미지로부터 가상의 얼굴 이
 ![image](https://user-images.githubusercontent.com/49602144/141457795-3dfa0f1f-f530-4886-a365-3c58eb3cb168.png)
 ### StyleGAN2-ADA Vector Manipulation ([notebook](https://github.com/Guest-01/face-generator/blob/dev/4_stylegan_explore.ipynb))
 ![image](https://user-images.githubusercontent.com/49602144/141458663-9258ea0f-1039-4e11-94c9-72935fa35b9c.png)
-### Face-Morphing (시도중)
-시도중...
+### Face-Morphing ([notebook](https://github.com/Guest-01/face-generator/blob/master/5_face_morphing.ipynb))
+![image](https://user-images.githubusercontent.com/49602144/141926661-8b6b82fc-34c1-4731-bb18-50e1370973dc.png)
+---
