@@ -3,6 +3,8 @@
 - 조하진 (Code States AIB 3기)
 - 장호현 (Code States AIB 3기)
 
+**결과 ppt 바로가기** --- <https://github.com/hajinjo/face-generator-1/blob/master/results/stylegan.pdf>
+
 ## 기획서
 ### 프로젝트 주제
 가상의 여성 얼굴 이미지 생성
